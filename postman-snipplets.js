@@ -87,3 +87,17 @@ pm.sendRequest(fakerServerOrigin + "/?property=random.uuid", function (err, resp
 pm.sendRequest(fakerServerOrigin + "/?property=random.number", function (err, response) {
     pm.globals.set("fake.integer", response.text());
 });
+
+// prepare some random name before run
+var rnd = (Math.random() * 1000 | 0);
+pm.globals.set('tmp', 'Test doc #' + rnd);
+
+// generate UUID
+function uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+  
+console.log(uuidv4())
