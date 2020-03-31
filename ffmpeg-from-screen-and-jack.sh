@@ -18,7 +18,7 @@ trap_ctrlc()
 }
 trap "trap_ctrlc" 2
 
-ffmpeg -video_size $RESOLUTION -framerate 25 -f x11grab -i :0.0+0,0 -thread_queue_size 1024 -f jack -i ffmpeg-rec \
+ffmpeg -video_size $RESOLUTION -framerate 10 -f x11grab -i :0.0+0,0 -thread_queue_size 2048 -f jack -i ffmpeg-rec \
 -c:v libx264 -preset superfast $FILE
 #-c:v zlib -c:a mp3 -b:a 128K $FILE
 #-c:v libx264 -preset ultrafast -crf 0 -c:a mp3 -b:a 128K $FILE
