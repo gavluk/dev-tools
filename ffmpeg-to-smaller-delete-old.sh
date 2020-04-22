@@ -5,9 +5,10 @@ set -e
 
 SOURCE=$1
 TARGET=$1-smaller.mp4
-SOURCE_SIZE=`du -m "${SOURCE}"`
 
-echo "Starting:\t${SOURCE_SIZE}"
+SOURCE_INFO=`ffmpeg-info.sh "${SOURCE}"`
+
+echo "Starting:\t${SOURCE_INFO}"
 
 
 # ls -al "$1"
@@ -16,8 +17,8 @@ ffmpeg -loglevel error -i "${SOURCE}" -codec:v libx264 -vf "scale=ceil(iw*720/ih
 
 sync
 
-TARGET_SIZE=`du -m "${TARGET}"`
-echo "Finished:\t${TARGET_SIZE}"
+TARGET_INFO=`ffmpeg-info.sh "${TARGET}"`
+echo "Finished:\t${TARGET_INFO}"
 
 rm "${SOURCE}"
 
