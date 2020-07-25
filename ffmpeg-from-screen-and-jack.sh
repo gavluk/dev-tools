@@ -4,7 +4,7 @@ PREFIX=$1
 RESOLUTION=$2
 
 if [ -z $RESOLUTION ]; then
-	RESOLUTION="1280x900"
+	RESOLUTION="1280x1080"
 #	RESOLUTION=`xrandr | grep '*' | head -n 1 | awk '{ print $1; }'`
 echo "No resolution as second parameter provided. Using ${RESOLUTION}"
 fi
