@@ -17,6 +17,7 @@ objects_struct_builder = {
     "username":         lambda fake, struct, user_struct: user_struct["username"],
     "password":         lambda fake, struct, user_struct: user_struct["password"],
     "country":          lambda fake, struct, user_struct: "USA", #fake.country(),
+    "units":            lambda fake, struct, user_struct: fake.random_int(min=1000000, max=1000000),
     "city":             lambda fake, struct, user_struct: fake.city(),
     "streetaddress":    lambda fake, struct, user_struct: fake.street_address(),
     "project_name":     lambda fake, struct, user_struct: struct['city'] + ", " + struct['streetaddress'],
@@ -31,7 +32,6 @@ objects_struct_builder = {
     "attorney_email":   lambda fake, struct, user_struct: fake.email(),
     "states":           lambda fake, struct, user_struct: fake.military_state(),
     "zip":              lambda fake, struct, user_struct: fake.zipcode(),
-    "units":            lambda fake, struct, user_struct: fake.random_int(min=1, max=10),
 }
 
 import sys
