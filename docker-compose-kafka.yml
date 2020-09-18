@@ -1,24 +1,31 @@
 version: '2'
 services:
   zookeeper:
-    image: zookeeper
+    image: bitnami/zookeeper:latest
     ports:
       - "2181:2181"
     volumes:
-      - 'zookeeper_data:/data'
+      - 'zookeeper_data:/bitnami'
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
 
   kafka:
-    image: wurstmeister/kafka
+    image: bitnami/kafka:latest
     depends_on:
       - zookeeper
     ports:
       - "9092:9092"
+      - "9093:9093"
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: gavluk-laptop
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=CLIENT://:9093,EXTERNAL://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka:9093,EXTERNAL://gavluk-laptop:9092
+      - KAFKA_INTER_BROKER_LISTENER_NAME=CLIENT
     volumes:
-      - kafka_data:/kafka
-      - /var/run/docker.sock:/var/run/docker.sock
+      - kafka_data:/bitnami
 
   kafdrop:
     depends_on:
@@ -26,9 +33,9 @@ services:
     restart: on-failure
     image: obsidiandynamics/kafdrop:latest
     ports:
-        - '9093:9000'
+        - '9094:9000'
     environment:
-        KAFKA_BROKERCONNECT: 'kafka:9092'
+        KAFKA_BROKERCONNECT: 'kafka:9093'
         JVM_OPTS: "-Xms32M -Xmx64M"
         SERVER_SERVLET_CONTEXTPATH: "/"
 volumes:
