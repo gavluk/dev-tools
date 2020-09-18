@@ -4,7 +4,7 @@ docker network create kafka-net
 
 docker run -d --name zookeeper \
     --network kafka-net \
-    jplock/zookeeper
+    zookeeper
 
 sleep 2
 
