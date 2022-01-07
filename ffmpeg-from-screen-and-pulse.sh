@@ -23,7 +23,7 @@ pactl load-module module-null-sink sink_name=mix
 pactl load-module module-loopback sink=mix
 pactl load-module module-loopback sink=mix
 
-ffmpeg -video_size $RESOLUTION -framerate 10 -f x11grab -i :0.0+0,0 -thread_queue_size 2048 -f alsa -i pulse \
+ffmpeg -video_size $RESOLUTION -framerate 10 -f x11grab -i :1+0,0 -thread_queue_size 2048 -f alsa -i pulse \
 -c:v libx264 -preset superfast $FILE
 
 echo "Cleaning pulse modules..."
