@@ -11,6 +11,10 @@ docker run \
     rabbitmq:3-management
 
 cat <<END
+# Web UI:
+
+http://localhost:15672/
+
 # Using client:
 
 $ docker exec -it rabbit bash
